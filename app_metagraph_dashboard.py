@@ -37,12 +37,29 @@ def _row_key(r: dict) -> tuple[str, str]:
     return (r["coldkey_name"], r["hotkey_name"])
 
 
+FIELDNAMES_CURRENT = ["coldkey_name", "hotkey_name", "uid", "axon", "status"]
+
+
+def _read_status_from_csv() -> dict[tuple[str, str], str]:
+    """Đọc cột status từ file. Row mới chưa có thì dashboard để 'wait to check'."""
+    out = {}
+    if not CURRENT_CSV.exists():
+        return out
+    with CURRENT_CSV.open(newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            key = (row.get("coldkey_name", ""), row.get("hotkey_name", ""))
+            if row.get("status"):
+                out[key] = row["status"]
+    return out
+
+
 def _write_current_csv(rows: list[dict]) -> None:
+    """Luôn 5 cột. status = từ merge hoặc 'wait to check' nếu row mới."""
     with CURRENT_CSV.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["coldkey_name", "hotkey_name", "uid", "axon"])
+        w = csv.DictWriter(f, fieldnames=FIELDNAMES_CURRENT, extrasaction="ignore")
         w.writeheader()
         for r in rows:
-            w.writerow({k: r[k] for k in ["coldkey_name", "hotkey_name", "uid", "axon"]})
+            w.writerow({k: r.get(k, "") for k in FIELDNAMES_CURRENT})
 
 
 def _write_dead_csv(dead_list: list[dict]) -> None:
@@ -73,6 +90,9 @@ def _fetch_and_diff() -> None:
     global _current_rows, _previous_rows, _dead_queue, _last_fetch
     try:
         new_rows = get_metagraph_rows(BASE_DIR)
+        status_by_key = _read_status_from_csv()
+        for r in new_rows:
+            r["status"] = status_by_key.get(_row_key(r)) or "wait to check"
         current_keys = {_row_key(r) for r in new_rows}
         with _lock:
             for r in _previous_rows:
@@ -174,6 +194,9 @@ HTML_TEMPLATE = """
     tr:hover {{ background: #21262d; }}
     .count {{ color: #8b949e; font-weight: normal; }}
     .dead-time {{ font-size: 0.75rem; color: #8b949e; }}
+    .status-active {{ color: #7ee787; font-weight: 600; }}
+    .status-inactive {{ color: #ff7b72; font-weight: 600; }}
+    .status-wait {{ color: #d29922; font-weight: 600; }}
     @media (max-width: 900px) {{
       .tables {{ grid-template-columns: 1fr; }}
     }}
@@ -192,6 +215,7 @@ HTML_TEMPLATE = """
             <th>HOTKEY</th>
             <th>UID</th>
             <th>AXON</th>
+            <th>STATUS</th>
           </tr>
         </thead>
         <tbody>
@@ -230,15 +254,22 @@ def _escape(s: str) -> str:
     return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;"))
 
 
+def _status_cell(s: str) -> str:
+    if s == "active":
+        return '<td class="status-active">🟢 active</td>'
+    if s == "non-active":
+        return '<td class="status-inactive">🔴 non-active</td>'
+    return '<td class="status-wait">🟡 wait to check</td>'
+
 def _render_html(current: list[dict], dead: list[dict], last_fetch: str) -> str:
     if current:
         current_rows_html = "\n".join(
             f'<tr><td>{_escape(r["coldkey_name"])}</td><td>{_escape(r["hotkey_name"])}</td>'
-            f'<td>{r["uid"]}</td><td>{_escape(r["axon"])}</td></tr>'
+            f'<td>{r["uid"]}</td><td>{_escape(r["axon"])}</td>{_status_cell(r.get("status") or "wait to check")}</tr>'
             for r in current
         )
     else:
-        current_rows_html = "<tr><td colspan=\"4\">No data yet</td></tr>"
+        current_rows_html = "<tr><td colspan=\"5\">No data yet</td></tr>"
     if dead:
         dead_rows_html = "\n".join(
             f'<tr><td>{_escape(r["coldkey_name"])}</td><td>{_escape(r["hotkey_name"])}</td>'
