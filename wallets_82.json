@@ -364,5 +364,59 @@
       "l2": "5DoUCQVKmpjkZJ6JjrdmSpHN3zgax17WC4qQuwKrB516x4z7",
       "l3": "5Et585jh5Mm3TP3hyVSgc5HaEbCiW5mf5hiR96ZXJaaqvLL3"
     }
+  },
+  "wt_40": {
+    "address": "5Gj5WySFfngMyQSYUaGF3KDw8C8Lq7UqeenXkH5gbsFdq7Tv",
+    "hotkeys": {
+      "l1": "5EsNsiSTQ6ikHWRocBki1giQSTUoxbuMtQxjDCD4LBvgSphQ",
+      "l2": "5H8yRb6VdbuevGq571Q4RzrknzsUCGgyZub6nrKkDnqqLp4i",
+      "l3": "5Cfyvqv1maD8oWmL2oSrDsUe9hbbtYyCz6S2K2k5xYa5vFYR"
+    }
+  },
+  "wt_41": {
+    "address": "5DkFutGXTT7cWY5nCoatEbqTnynWMJBY5uUvEF8PGi6XW4cT",
+    "hotkeys": {
+      "l1": "5FRptHSox5uschKFaVXxSdyAxa2w8Wqyt7cnAdfuJro8BDoV",
+      "l2": "5HEYQdq7t7Qp5dHAoy8vFa5XuXTqB8zMD8HAE7y1ZYggAgeF",
+      "l3": "5G7PFL1SG6NkYDGd6PWMES9jaH1RfbhkFAPd5RxdBHPKw394"
+    }
+  },
+  "wt_42": {
+    "address": "5G8mYXdUR7Lviq6wa8p3NhFcCfDTCGYMuPyBkgc7D8Uhn2uT",
+    "hotkeys": {
+      "l1": "5HBYWXFhGSdLuQX6F3JZu7fF5RNPK77TJTETLwRWX9NGHTKo",
+      "l2": "5EJ3v2MKd6nNiKKKJA2oxzKE5XyRu85jkQJ4SkDhwosRoC7i",
+      "l3": "5Fk3uCUKYbuE5x8wFTsAFF1iZf1ir7oYkdiAr5aozX7YLeoe"
+    }
+  },
+  "wt_43": {
+    "address": "5CY3LvrRtYGdsbHF3WWT621Tk9uRQ3W4aHk6ivhSStwzftDt",
+    "hotkeys": {
+      "l1": "5CK6oAZRMK5k2NXpXfzErN8F9WBSg8uwnSYGC6hnKBAeWLNr",
+      "l2": "5FentZi4hvbfmJYu4VFuNFWc4LEow3qzCEjt69i8umoB4zEn",
+      "l3": "5FUQyDuVmfopu8yWiLCNjmnivSTp9u6uvWAFLvt6DPedskqX"
+    }
+  },
+  "wt_44": {
+    "address": "5FyDQ2PBBg7JdVM855mfa7iNfTzgm5JkJvwH8iVQy5yLUihP",
+    "hotkeys": {
+      "l1": "5EeXgoV9b1mRSJUsnkvNuh3S47fan1L92QpyWUH7u3Ryo7w9",
+      "l2": "5GxSuDVweYS1UCWen5S6LsSWe5KAgoWzmiR7yV3iviYMi83s",
+      "l3": "5CfqdYDtqhAGnASLjWbJNR8YZwpsebEdcT1FRJAEt19hm5A9"
+    }
+  },
+  "wt_45": {
+    "address": "5HnJ1fRJ4njtw7N3ysukGxDmDFTS3chux6RJhf2kZMzuhiH6",
+    "hotkeys": {
+      "l1": "5C4qbuV3wTRjRzhH7p7RL1cDDWo3eMG4xAGQekrAAg9BJvqk",
+      "l2": "5HKeHifTr7RqPX355VPKTKjbaZhhPrFau67fWgKu5yJ3GoRn",
+      "l3": "5D9zADNMTbbnEhnsEJXPtMrtVJTPNKC3wr1KGtwhX392Nfdz"
+    }
+  },
+  "wt_46": {
+    "address": "5CyoQz9vpetN8TxLurT7x3xLc3DoKNfn17H5RWZhfZNM8kwm",
+    "hotkeys": {
+      "l1": "5GnJgJNEAnDQR7xr4X69uw1hm3QfzLFrDYd9YZkP9NQxRbXx"
+    }
   }
 }
