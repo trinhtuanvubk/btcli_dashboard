@@ -49,6 +49,12 @@ def get_metagraph_rows(base_dir: Path | None = None) -> list[dict]:
         axon_short = f"{axon.ip}:{axon.port}"
         rows.append((wallet_name, hotkey_name, uid, axon_short))
 
+    try:
+        subtensor.substrate.close()
+    except Exception:
+        pass
+    del metagraph, subtensor
+
     def _num(s: str) -> int:
         m = re.search(r"\d+", s)
         return int(m.group(0)) if m else 0

@@ -1,9 +1,11 @@
 """
 Bot Telegram: mỗi 12 phút đọc current_metagraph.csv, check từng axon,
-thêm cột status (active/non-active), ghi lại CSV và gửi báo cáo có 🟢/🔴.
+thêm cột status (active/non-active), ghi lại CSV.
+Chỉ gửi Telegram khi có UID đổi trạng thái (active ↔ non-active).
 """
 
 import csv
+import gc
 import time
 from pathlib import Path
 
@@ -18,7 +20,7 @@ from check_axons import (
 
 TOKEN = "8667840920:AAEKRsTYhdEDdV3tRRcUydt4soY7TYeEe3o"
 CHAT_ID = "-5101231510"
-INTERVAL_MINUTES = 12
+INTERVAL_MINUTES = 2
 BASE_DIR = Path(__file__).resolve().parent
 CURRENT_CSV = BASE_DIR / "current_metagraph.csv"
 
@@ -56,62 +58,72 @@ def run_check() -> list[dict]:
     return rows
 
 
-def format_report(rows: list[dict]) -> str:
-    """Tạo nội dung báo cáo với 🟢 active, 🔴 non-active."""
-    lines = ["<b>Axon status</b> (mỗi {} phút)\n".format(INTERVAL_MINUTES)]
+def format_state_change_alert(changed: list[dict]) -> str:
+    """Tạo tin nhắn alert khi có UID đổi trạng thái."""
+    lines = ["<b>⚠️ Axon state changed!</b>\n"]
     lines.append("<pre>")
-    # Header
-    lines.append("WALLET     HOTKEY  UID   AXON              STATUS")
-    lines.append("-" * 55)
-    for r in rows:
-        wallet = (r["coldkey_name"] or "")[:10].ljust(10)
-        hotkey = (r["hotkey_name"] or "")[:8].ljust(8)
+    lines.append("UID   AXON               CHANGE")
+    lines.append("-" * 45)
+    for r in changed:
         uid = str(r.get("uid", ""))[:4].ljust(4)
         axon = (r["axon"] or "")[:18].ljust(18)
-        status = r.get("status", "")
-        if status == "active":
-            badge = "🟢 active"
+        prev = r["_prev_status"]
+        curr = r["status"]
+        if prev == "wait to check" and curr == "active":
+            change = "🟡→🟢 active"
+        elif prev == "wait to check" and curr == "non-active":
+            change = "🟡→🔴 not start"
+        elif curr == "active":
+            change = "🔴→🟢 recovered"
         else:
-            badge = "🔴 non-active"
-        lines.append("{} {} {} {} {}".format(wallet, hotkey, uid, axon, badge))
+            change = "🟢→🔴 DOWN"
+        lines.append("{} {} {}".format(uid, axon, change))
     lines.append("</pre>")
-    active_count = sum(1 for r in rows if r.get("status") == "active")
-    non_active_count = len(rows) - active_count
-    lines.append("\n🟢 {} active · 🔴 {} non-active".format(active_count, non_active_count))
-
-    # Gửi thêm từng dòng non-active dạng ip:port/stats để copy
-    non_active = [r for r in rows if r.get("status") != "active"]
-    if non_active:
-        lines.append("\n<b>Copy non-active:</b>")
-        lines.append("<pre>")
-        for r in non_active:
-            axon = (r.get("axon") or "").strip()
-            if axon:
-                lines.append(axon + "/stats")
-        lines.append("</pre>")
     return "\n".join(lines)
 
 
 def main() -> None:
     print("Telegram axon bot: check mỗi {} phút, gửi tới chat {}".format(INTERVAL_MINUTES, CHAT_ID))
+    send_telegram("🤖 Axon bot started. Checking every {} minutes.".format(INTERVAL_MINUTES))
+    # uid -> status của lần check trước
+    prev_states: dict[str, str] = {}
+
     while True:
         try:
             rows = run_check()
-            if rows:
-                msg = format_report(rows)
-                # Telegram giới hạn 4096 ký tự
-                if len(msg) > 4000:
-                    msg = msg[:3950] + "\n… (cắt bớt)"
-                send_telegram(msg)
-                print("Sent report: {} axons, {} active".format(
-                    len(rows),
-                    sum(1 for r in rows if r.get("status") == "active"),
-                ))
+            if not rows:
+                print("No rows in current_metagraph.csv, skip.")
             else:
-                print("No rows in current_metagraph.csv, skip send.")
+                changed = []
+                for r in rows:
+                    uid = str(r.get("uid", ""))
+                    curr = r.get("status", "")
+                    prev = prev_states.get(uid)
+                    if prev is None or prev == curr:
+                        pass  # UID mới hoặc không đổi, không alert
+                    else:
+                        r["_prev_status"] = prev
+                        changed.append(r)
+                    prev_states[uid] = curr
+
+                active_count = sum(1 for r in rows if r.get("status") == "active")
+                print("Check done: {}/{} active, {} changed".format(
+                    active_count, len(rows), len(changed)
+                ))
+
+                if changed:
+                    msg = format_state_change_alert(changed)
+                    for i in range(0, len(msg), 4000):
+                        send_telegram(msg[i:i+4000])
+                    print("Sent alert for {} changed UIDs".format(len(changed)))
+                else:
+                    print("No state change, skip send.")
+
         except Exception as e:
             print("Run error:", e)
             send_telegram("Axon check error: {}".format(str(e)[:500]))
+        finally:
+            gc.collect()
 
         time.sleep(INTERVAL_MINUTES * 60)
 

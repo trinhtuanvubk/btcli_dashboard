@@ -12,9 +12,9 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 CURRENT_CSV = BASE_DIR / "current_metagraph.csv"
-DEFAULT_TIMEOUT = 15  # giây (một số axon phản hồi chậm)
+DEFAULT_TIMEOUT = 6  # giây (một số axon phản hồi chậm)
 DEFAULT_SLEEP = 1.0  # giây giữa mỗi request (nhiều axon cùng 1 máy AWS → tránh rate limit)
-RETRIES = 2  # số lần retry khi timeout / No route to host (mạng có thể tạm thời)
+RETRIES = 1  # số lần retry khi timeout / No route to host (mạng có thể tạm thời)
 # Giả browser để server không chặn (nhiều axon chỉ chấp nhận request giống browser)
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -87,6 +87,7 @@ def check_axon(
     for attempt in range(retries + 1):
         url = f"http://{base}{full_path}"
         status, text = _fetch(url, timeout, use_https=False)
+        print(status)
         if status == "active":
             return "active", text
         last_err = text
