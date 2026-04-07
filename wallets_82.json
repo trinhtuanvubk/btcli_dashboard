@@ -205,6 +205,14 @@
       "k1": "5CDMDrmQYqtrGtaXeAV67NmrmU3zT5W8U75CqyUL2ptvB43C"
     }
   },
+  "wt_100": {
+    "address": "5CX5uyXtSZsie3AuQJE9QJABM1YkbNyQtZS5NrKJX2mfTBp5",
+    "hotkeys": {
+      "l1": "5HMqAWW7jZccFtm7kKBkCuhR2HPcf9hc7sYc9RawGX1EHf3A",
+      "l2": "5Ei3kb1fdxFPYZEcTzHBWHSsbCS33Bcd9wZiZobCUqtTY5xK",
+      "l3": "5GRYiRjSm5BeMgRMSzjRLurAaHPh8jrErmyuRp3kdj8N4JBb"
+    }
+  },
   "wt_16": {
     "address": "5DjsgTU4U9LYL2qbataXk2JgA1DhADNzMj18vUk4UQ3Uz444",
     "hotkeys": {
@@ -713,6 +721,166 @@
       "l1": "5H8fcnJv8TRvhpaWhiNedDpfnrp996sZBhJo7DHSNHbETwZU",
       "l2": "5Geih8CJ99NJ5kdmiXD5pruEXYE4c3HR8LK5kg1r7J8Daotk",
       "l3": "5DeVPcz9UZucewzJtVF4Y262wzsrSMT52DDsMynjthc2AR8m"
+    }
+  },
+  "wt_80": {
+    "address": "5GHTgW31E3HM2CNxKmfKtgHpvJUks1zBwFdQBtVuH7PG6PLu",
+    "hotkeys": {
+      "l1": "5FhmpP5pmofK5v4CZjdPoDgcJnVe3xKARyrwr3oXhVRkVi9o",
+      "l2": "5CaHEfTeLQaRbhzC2EifgLshACoubhH3FjX7TqcdrefbqKQT",
+      "l3": "5EceVXTh5G2Ca9shq59pFdKVKC2mBT53TfB2G1BnaUjHWrVb"
+    }
+  },
+  "wt_81": {
+    "address": "5GrwVsCwCRZBZ9cJYbQzoYNW8NRq26zBofFE5hfKvR8kSgWv",
+    "hotkeys": {
+      "l1": "5DsiE7A4cGqX15aCtLQNMwbumkVUghif8PNwUp1PP3RMRw8n",
+      "l2": "5Gmfe6VwHZr5EED3zX9rBVoCQWM3d2TrXr4XS1oWzkUNWnHh",
+      "l3": "5HREznFkP9Bhv1GATDr6rFB8XJpRyaMxbSpTebHnRzJF4BEd"
+    }
+  },
+  "wt_82": {
+    "address": "5GA18hgbFP9rBVLBFRuakThhEpKjjLcDUSKi1pifjj4EPdUv",
+    "hotkeys": {
+      "l1": "5DX45i2KHBLekqEszf4aM9JsjiW9K4u82XobnNgPvEr6hL4j",
+      "l2": "5GdtaLLdq5vmp7H3MmSyHDiw7cEAbBFJbmNs82FqZJtso2FR",
+      "l3": "5H3aZconAuoXJPZUeJM4yPWyz8ebPbkF28xN6iumrKDYPnTo"
+    }
+  },
+  "wt_83": {
+    "address": "5HWQ8BU3dcebdMxwQNzsX8Hq4Y9j8eJHSafiXYDqGTxLizs5",
+    "hotkeys": {
+      "l1": "5EtFgoHTiaFpXe17Ft6vjLa7riZx146CyHf94MT7UcCHfQD1",
+      "l2": "5DFsYy4xBAyUhJTA2vbRKdgxcja94RkPknzsLT8SHZJwBd9J",
+      "l3": "5CfxuviPgJTHkHUXtCqEykSQuRk6D4B6tDMSJ3VHpr6b9Noc"
+    }
+  },
+  "wt_84": {
+    "address": "5CfssSV5qo5L4n6w2bqodPDJe7gy9W1KZjHcNtMWYtU8aj6G",
+    "hotkeys": {
+      "l1": "5CcLCUwECVQQjYQFdguPLJP1JBxkrNywmRVtUVp3jPQNSNqE",
+      "l2": "5DLjVLkYU9AfGss7Yy19FhAwSqq9TWbkW5h4h4hABbcGLdX4",
+      "l3": "5CcQmfTHzV7gGqrXFZ4Xap41Ui31X2ptueNFEj2iJacjiKfT"
+    }
+  },
+  "wt_85": {
+    "address": "5G9cNcWXnjL9BC2kYDZ7QLTvr7dWvhimxYQQaXDoit6GQF1u",
+    "hotkeys": {
+      "l1": "5DLmSz5TknsXx91Xtyr9NGpHBGVXW3xxpbfsajmoDYmYXnaL",
+      "l2": "5GbcuEFHUWbHvghL87xBAi1sz9Z8Nw8E45MsWsCxZdeiQhty",
+      "l3": "5F9e1HmcbAjhmY6vEjPd11TtmMzygf3Ay9gagW8TrZPtTWpQ"
+    }
+  },
+  "wt_86": {
+    "address": "5FFRGkP3Rp7s6KRDNGp8TPBtQdm3ovrJG1vqwUGYqJirGdwd",
+    "hotkeys": {
+      "l1": "5CLYMG248d2Zbt8wXZF54KoQh8eLNMYyQMQDYhqjmAst19XW",
+      "l2": "5CfxixaT5T9UVybqtBkSsUDSHuxgAgS6f2gETu3xktm1Xutt",
+      "l3": "5EZsjpK3S4V9TqbRtAAWU6sxCRjGyfusYgHohNhGS6dcUBNt"
+    }
+  },
+  "wt_87": {
+    "address": "5H9AcUNANnSR8xyTyxrLwvxuJF7Qzm7V7VjowA9kLBDHdUvc",
+    "hotkeys": {
+      "l1": "5Fk2kFn7NFSMMLwAyqy7djDrmoxYBFzR2P9VnLvZRok2cf1L",
+      "l2": "5GTGdcwS8P3a1i3YBNeg6RN9XDmM1q6KEN4hgUMC3m9fzw26",
+      "l3": "5HW9TUowt1ZWtSuATtN1uoFPicXNDfKuKXgHsWaAcDHWN7ji"
+    }
+  },
+  "wt_88": {
+    "address": "5HYzKSkmQweD94AmuzRpmCkBPPWBATX4Ux8egZEocyG4rrLo",
+    "hotkeys": {
+      "l1": "5GNykzRjVCX7QFBZRPs64RzWochRYtZnyoYS2AwYJa6tiTzW",
+      "l2": "5G6JfVcVZ9xg2tFZ6twXTm7P5hwM52NbpvmyYDWnaZz2ZrGu",
+      "l3": "5H6fiVsDSLKanLMcnQ1nDQKZtLcr3chgkhp695E4pThfskAV"
+    }
+  },
+  "wt_89": {
+    "address": "5HC9LLnoWPZdFmK3fpgN4qGQMnZKNHmjsMfVDWp6agTauGEK",
+    "hotkeys": {
+      "l1": "5FveYNc8URSuSpPwvtvoiRy3cVY74ZdUHJvLs1L5dbxeY5LL",
+      "l2": "5EvgoZZ6ueXRukmMh2TJ49QoE5LdCPuekWwmPbf9NLdzJEx7",
+      "l3": "5Dd1bYrGqKNP7bi49QVc19DjxU7etxNXcJ8wwYXQW7QM4nZF"
+    }
+  },
+  "wt_90": {
+    "address": "5E7xddEDUqMf7sj3qXiWFy8NPvPnLyDS4YBucn87psNdwZaX",
+    "hotkeys": {
+      "l1": "5DRe5AsymJX3veH4rGFcDqSNU6y4Magx9zmtFVjigr9Utaqs",
+      "l2": "5FL6qptSNQoDcRJce43YfqNk3txW4knFDenrgfsxArfC216R",
+      "l3": "5F79sSpZKzwaHXLBcYiKjfLLexEcgxcQBqMhLA7iDdfdA6rb"
+    }
+  },
+  "wt_91": {
+    "address": "5GHUGXzo4gJ4DxUQwd8tYbGmreQqGmem8GQ5WuBHBeXtpjHP",
+    "hotkeys": {
+      "l1": "5DnSMtgaUdb1nuDEijk344DZVoc3haLWjJEdHjoBPExX6JMh",
+      "l2": "5Dsw34KZB4n5GNxZXjscTZaPkbkswgufk73BKTLTBQxExFpx",
+      "l3": "5CACjmwqGRmXJSwBb5Aih9UeWvu5D4NMfpxRG2uZpcfBBLhK"
+    }
+  },
+  "wt_92": {
+    "address": "5DUk1beX173UASWapYhtcTM6GSv9Q3tGPpBr68Vb3jFxNiqA",
+    "hotkeys": {
+      "l1": "5Cd6ZXrX3gqXNLTbgviZi2GNmGwLxtcLxdwGmVmnM5zwCT75",
+      "l2": "5E1hFL5q18ESfwUwVkEsEbtdLXAywSVoNbEiza7FmgQztK79",
+      "l3": "5FsD3L5wMTYNztLBdYQX25ogSU3uCnmamBazzgkawuULEtM3"
+    }
+  },
+  "wt_93": {
+    "address": "5EU6tF1GpRW9ZEMAr2WL2efKyFSEzdc8EPCE8XejttyaXuWQ",
+    "hotkeys": {
+      "l1": "5Gbok2vECqgnVRcw4GLdxXjQ7UaSjvGcrE41WhYcm8gXDJUt",
+      "l2": "5Cd6UVouPqqwWYbPanweu9vvjpEEeuMNBYjxG6MwSWXSyNAa",
+      "l3": "5DcA17kADk6hJsX9Fa9PiLwSDWBdkxLDovQRi7qumCxFT8of"
+    }
+  },
+  "wt_94": {
+    "address": "5FWa15zSN58ihzTMMF6tEUKPiNrCsUFAjNUQckd18ebDFYRA",
+    "hotkeys": {
+      "l1": "5Ew4EXGADhf9anjS9RoWGzsF3Us4S2fUuT2gW4jSkF8Z35Da",
+      "l2": "5DP4sBS2mMjo78u2NtB5dWAr5MNzgkthYky8X8btki4heKeu",
+      "l3": "5FjMFCSjGjwU5YJfQJwTGtVffkk3nz78VkkC72QQKbEkW5ts"
+    }
+  },
+  "wt_95": {
+    "address": "5EhFaAUXCfEmorb9AGgApNDQhBhXQh1x2B6qCgS4XnGekMAk",
+    "hotkeys": {
+      "l1": "5DrCvTnkPVyVyp1cCNQUeJA8KqtLsRwixSgFGUgBSoMWpDQA",
+      "l2": "5Doc12TGV3yFs89DeqpQEa2dnHoHKvSMbd4aWCkePRceSJgH",
+      "l3": "5EUy7F76iorNV9mi5Lj5eTGU6cc6kk2psusrRNnu6wtLDPwg"
+    }
+  },
+  "wt_96": {
+    "address": "5G8iXumJZ5YrKCDnfqGdYQVXsmaLXCx2tYfRv2FipmY1TQ2b",
+    "hotkeys": {
+      "l1": "5GU5ii27vA1tkCaMQfDkuV7X7PaPGQGbrswmVEmNFjfd7YML",
+      "l2": "5HePbdCS9wDVrnCFWRW8JAhiZGQTQFk5kW5ZUYTEpxBGV3KN",
+      "l3": "5D4zFzddQzuivkS2TfW3AAbtGWSiYSTFPfAzgCWNPjGLvmVn"
+    }
+  },
+  "wt_97": {
+    "address": "5DXe1bMRN9SyxSR2SuFdQcg6ABnqY27WHNZ4bxpprkujwrLB",
+    "hotkeys": {
+      "l1": "5CJeztWo5b7ZJwPBQSmRm8H3SZ9v8f1ZcDYCLbAiNtcWkmTc",
+      "l2": "5GxNyVEVTPzQmN71STAQB6KA6uyw7UA5wBbpLGPNXZwxcwAM",
+      "l3": "5FxgUHtuwz3f5ZzUWrWi5QABaJk74bApYgHe3UkAihND7mNY"
+    }
+  },
+  "wt_98": {
+    "address": "5HMeocwbVHrgsvAvUsCWXWNMZZDtgSnRhBBLMNDAayTKieQq",
+    "hotkeys": {
+      "l1": "5FnULZsoANpMNWc49RLxF2uoecwu5GrmieXppy9fpKtSDyqd",
+      "l2": "5HYNdxpWfXLaMoPEuKzyBFjbHt89rxnHa33YuniyPZH1Q3zb",
+      "l3": "5H11z7GqrBSy6MEPCyU84DRXLCcvbG9e2oXQxuf6pHVYbKwp"
+    }
+  },
+  "wt_99": {
+    "address": "5GmkxmD5uLUpW6uLJAJsjgrD9r9GJ7FzKGcFfnPst7HpypHP",
+    "hotkeys": {
+      "l1": "5F4sRmAbK6VS7XYgnAxUmrAXeb7HozAeRpoyGVTXHBF6xZ3W",
+      "l2": "5DcU9ZPC6Nqxa7756tCY9Qkwi1wbFzzdkJr2tastXHNzzFcy",
+      "l3": "5Dsq5qQaNuFZCXHMnbfD7x2v7JDeZG6w2n6d82QJPLAREdKm"
     }
   }
 }

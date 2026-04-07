@@ -38,7 +38,15 @@ def get_metagraph_rows(base_dir: Path | None = None) -> list[dict]:
     subtensor = bt.Subtensor(network="finney")
     metagraph = subtensor.metagraph(netuid=82)
 
-    rows: list[tuple[str, str, int, str]] = []
+    # Compute incentive-based rank for every UID (1 = highest incentive)
+    incentives = metagraph.incentive.tolist()
+    uid_rank: dict[int, int] = {}
+    for rank, (uid_i, _inc) in enumerate(
+        sorted(enumerate(incentives), key=lambda x: x[1], reverse=True), start=1
+    ):
+        uid_rank[uid_i] = rank
+
+    rows: list[tuple[str, str, int, str, int, float]] = []
     for uid, axon in enumerate(metagraph.axons):
         hotkey_addr = axon.hotkey
 
@@ -47,7 +55,7 @@ def get_metagraph_rows(base_dir: Path | None = None) -> list[dict]:
 
         wallet_name, hotkey_name = hotkey_map[hotkey_addr]
         axon_short = f"{axon.ip}:{axon.port}"
-        rows.append((wallet_name, hotkey_name, uid, axon_short))
+        rows.append((wallet_name, hotkey_name, uid, axon_short, uid_rank.get(uid, 0), incentives[uid]))
 
     try:
         subtensor.substrate.close()
@@ -62,7 +70,7 @@ def get_metagraph_rows(base_dir: Path | None = None) -> list[dict]:
     rows.sort(key=lambda r: (_num(r[0]), _num(r[1])))
 
     return [
-        {"coldkey_name": r[0], "hotkey_name": r[1], "uid": r[2], "axon": r[3]}
+        {"coldkey_name": r[0], "hotkey_name": r[1], "uid": r[2], "axon": r[3], "rank": r[4], "incentive": r[5]}
         for r in rows
     ]
 

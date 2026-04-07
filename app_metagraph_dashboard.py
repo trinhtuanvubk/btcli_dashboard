@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent
 CURRENT_CSV = BASE_DIR / "current_metagraph.csv"
 DEAD_CSV = BASE_DIR / "dead_metagraph.csv"
 DEAD_QUEUE_MAX = 30
-REFRESH_INTERVAL_SEC = 10 * 60  # 10 minutes
+REFRESH_INTERVAL_SEC = 5 * 60  # 10 minutes
 
 # State (thread-safe: only background thread writes, main thread reads)
 _current_rows: list[dict] = []
@@ -37,7 +37,7 @@ def _row_key(r: dict) -> tuple[str, str]:
     return (r["coldkey_name"], r["hotkey_name"])
 
 
-FIELDNAMES_CURRENT = ["coldkey_name", "hotkey_name", "uid", "axon", "status"]
+FIELDNAMES_CURRENT = ["coldkey_name", "hotkey_name", "uid", "axon", "status", "rank", "incentive"]
 
 
 def _read_status_from_csv() -> dict[tuple[str, str], str]:
@@ -54,12 +54,17 @@ def _read_status_from_csv() -> dict[tuple[str, str], str]:
 
 
 def _write_current_csv(rows: list[dict]) -> None:
-    """Luôn 5 cột. status = từ merge hoặc 'wait to check' nếu row mới."""
+    sorted_rows = sorted(rows, key=lambda r: int(r.get("rank") or 0))
     with CURRENT_CSV.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=FIELDNAMES_CURRENT, extrasaction="ignore")
         w.writeheader()
-        for r in rows:
-            w.writerow({k: r.get(k, "") for k in FIELDNAMES_CURRENT})
+        for r in sorted_rows:
+            out = {k: r.get(k, "") for k in FIELDNAMES_CURRENT}
+            try:
+                out["incentive"] = f"{float(r.get('incentive', 0)):.6f}"
+            except (ValueError, TypeError):
+                pass
+            w.writerow(out)
 
 
 def _write_dead_csv(dead_list: list[dict]) -> None:
@@ -93,6 +98,8 @@ def _fetch_and_diff() -> None:
         status_by_key = _read_status_from_csv()
         for r in new_rows:
             r["status"] = status_by_key.get(_row_key(r)) or "wait to check"
+            r.setdefault("rank", 0)
+            r.setdefault("incentive", 0.0)
         current_keys = {_row_key(r) for r in new_rows}
         with _lock:
             for r in _previous_rows:
@@ -204,7 +211,7 @@ HTML_TEMPLATE = """
 </head>
 <body>
   <h1>Metagraph Dashboard</h1>
-  <p class="meta">Refreshes every 10 min · Last fetch: {last_fetch}</p>
+  <p class="meta">Refreshes every 5 min · Last fetch: {last_fetch}</p>
   <div class="tables">
     <div class="panel left">
       <h2>On metagraph <span class="count">({current_len} rows)</span></h2>
@@ -216,6 +223,8 @@ HTML_TEMPLATE = """
             <th>UID</th>
             <th>AXON</th>
             <th>STATUS</th>
+            <th>RANK</th>
+            <th>INCENTIVE</th>
           </tr>
         </thead>
         <tbody>
@@ -261,15 +270,23 @@ def _status_cell(s: str) -> str:
         return '<td class="status-inactive">🔴 non-active</td>'
     return '<td class="status-wait">🟡 wait to check</td>'
 
+def _fmt_incentive(val) -> str:
+    try:
+        return f"{float(val):.6f}"
+    except (ValueError, TypeError):
+        return str(val)
+
 def _render_html(current: list[dict], dead: list[dict], last_fetch: str) -> str:
-    if current:
+    sorted_current = sorted(current, key=lambda r: int(r.get("rank") or 0)) if current else []
+    if sorted_current:
         current_rows_html = "\n".join(
             f'<tr><td>{_escape(r["coldkey_name"])}</td><td>{_escape(r["hotkey_name"])}</td>'
-            f'<td>{r["uid"]}</td><td>{_escape(r["axon"])}</td>{_status_cell(r.get("status") or "wait to check")}</tr>'
-            for r in current
+            f'<td>{r["uid"]}</td><td>{_escape(r["axon"])}</td>{_status_cell(r.get("status") or "wait to check")}'
+            f'<td>{r.get("rank", "")}</td><td>{_fmt_incentive(r.get("incentive", 0))}</td></tr>'
+            for r in sorted_current
         )
     else:
-        current_rows_html = "<tr><td colspan=\"5\">No data yet</td></tr>"
+        current_rows_html = "<tr><td colspan=\"7\">No data yet</td></tr>"
     if dead:
         dead_rows_html = "\n".join(
             f'<tr><td>{_escape(r["coldkey_name"])}</td><td>{_escape(r["hotkey_name"])}</td>'
